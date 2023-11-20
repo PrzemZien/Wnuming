@@ -1,1 +1,18 @@
+%metoda siecznych dla 100 iteracji
+% metoda siecznych 
+clear a; clear b; clear real_x;
 
+a = -2;
+b = 7;
+real_x = 1;
+xi = b;
+xi_minus = a;
+for i= 1:100
+    xi_plus = xi - ((xi - xi_minus)/((wx(xi) - wx(xi_minus))*wx(xi)));
+    xi_minus = xi;
+    xi = xi_plus;
+    deltax3(i) = abs(real_x - xi); 
+end
+
+semilogy(deltax3, 1:100)
+legend('M.Bisekcji','N-R','M.Siecznych')
