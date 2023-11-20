@@ -18,7 +18,7 @@ for i=1:100 % jest dla 100 iteracji
         a = x;
         fa = wx(a);
     end
-    deltax(i)=abs(real_x - x);
+    deltax(i)=abs(real_x - x); % obliczanie błędu 
 end
 
 semilogy(1:100,deltax)
