@@ -12,3 +12,24 @@ for i=1:max_iter
     x = x_new;
     deltax2(i) = abs(real_x - x)
 end
+clear x;
+
+% tutaj jest dla jakiegoś błędu 
+
+a=-2;
+b=0.5;
+
+dokladnosc=5e-10;
+
+% startujemy od a
+
+x=a;
+
+deltax=abs(w(x));
+
+while deltax>dokladnosc
+    
+    new_x=x - w(x)/dw(x);
+    x=new_x;
+    deltax=abs( w(x) ); % z ksiązki
+end
