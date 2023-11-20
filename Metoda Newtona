@@ -15,4 +15,4 @@ for i= 1:100
 end
 
 semilogy(deltax3, 1:100)
-legend('M.Bisekcji','N-R','M.Siecznych')
+
