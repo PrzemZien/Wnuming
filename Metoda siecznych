@@ -1,18 +1,18 @@
-% to jest dla interacji w tym przypadku 100
-%Metoda Newtona 
-clear a; clear b
-dwx = @(x) 0.04*x.^3 - 0.12*x.^2 + 0.04*x.^1 + 0.04 
-a = -2;
-b = 4;
-x = a
-real_x = -1; % wiem że w tym miejscu jest miejsce zerowe 
-max_iter = 100; 
 
-for i=1:max_iter
-    x_new = x - wx(x)/dwx(x)
-    x = x_new;
-    deltax2(i) = abs(real_x - x)
+%metoda siecznych dla 100 iteracji
+% metoda siecznych 
+clear a; clear b; clear real_x;
+
+a = -2;
+b = 7;
+real_x = 1;
+xi = b;
+xi_minus = a;
+for i= 1:100
+    xi_plus = xi - ((xi - xi_minus)/((wx(xi) - wx(xi_minus))*wx(xi)));
+    xi_minus = xi;
+    xi = xi_plus;
+    deltax3(i) = abs(real_x - xi); 
 end
 
-semilogy(deltax2, 1:max_iter,'r')
-hold on;
+semilogy(deltax3, 1:100)
