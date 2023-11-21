@@ -89,3 +89,17 @@ while deltax > blad
 end
 
 semilogy(deltaxx,'g')
+
+
+%Zadanie 2
+clear all;
+clc;
+ft = 1e-10;
+k = 1e-3;
+R1 = 8.5e3;
+Jg = 1e-3;
+
+% Id to x(1) natomiast I1 to x(2)
+f = @(x) [k * x(1) * R1*(((x(1)*R1)^3) - 1.5 * x(1) * R1 + 2 ) - x(1); Jg - x(2) - x(1)];
+options = optimoptions('fsolve', 'StepTolerance', ft, FunctionTolerance=ft);
+[Ud,fval, exitflag]  = fsolve(f, [-4,4],options)
