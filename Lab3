@@ -34,3 +34,26 @@ end
 
 semilogy(blad_bis(1,:),'r');
 
+% metoda Newtona
+
+
+
+x = linspace(-10,10);
+fx = @(x) x .* sinh(x-2) - 10;
+dfx = @(x) sinh(x-2) + x*cosh(x-2);
+
+it = 0;
+wartosc_prawdziwa = 3.7160;
+blad = 1e-14;
+xi = 0;
+delta_x = abs(wartosc_prawdziwa - xi);
+while delta_x > blad
+    it = it + 1;
+    xi_1 = xi - (fx(xi)/dfx(xi));
+    xi_new(it) = xi_1;
+    delta_x = abs(xi - xi_1);
+    xi = xi_1;
+    blad_N(2,it) = delta_x;
+end
+
+semilogy(blad_N(2,:),'g')
