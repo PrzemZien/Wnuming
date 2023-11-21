@@ -37,7 +37,7 @@ while blad_b > blad
     end
     xi_b(it) = xi;
     blad_b = abs(b - a);
-    blad_bis = blad_b;
+    blad_bis(it) = blad_b;
 end
 
 semilogy(blad_bis,'r');
