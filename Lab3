@@ -35,7 +35,7 @@ end
 semilogy(blad_bis(1,:),'r');
 
 % metoda Newtona
-
+% gdyby było o 5% większa to wartość prawdziwa musi być * 1.05
 
 
 x = linspace(-10,10);
