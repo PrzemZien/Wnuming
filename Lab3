@@ -1,5 +1,13 @@
 clear all, clc
 
+gdyby był sin(coś tam) to:
+% x= linspace(0,10*pi,1000);
+%f1 = @(x)(sin(x-pi/4)); % funkcja
+%f1_deriv = @(x) (cos(x-pi/4)); 
+%xi = fzero(f1,[0.5,1])*1.05;
+%x_dokl = fzero(f1,[0.5,1]);
+
+
 x = linspace(-10,10);
 fx = @(x) x .* sinh(x-2) - 10;
 
@@ -57,3 +65,27 @@ while delta_x > blad
 end
 
 semilogy(blad_N,'g')
+
+%metoda siecznych 
+
+fx = @(x) x .* sinh(x-2) - 10;
+
+dfx = @(x) sinh(x-2) - x*cosh(x-2);
+
+blad = 1e-14;
+wartosc_prawdziwa = 3.7160;
+it = 0;
+xi = 0;
+xi_min = wartosc_prawdziwa;
+deltax = abs(xi_min - xi);
+
+while deltax > blad
+    it = it + 1;
+    xi_1 = xi - ((fx(xi)*(xi_min - xi))/(fx(xi_min)-fx(xi))*fx(xi));
+    deltax = abs(xi - xi_min);
+    x_min = xi;
+    xi = xi_1;
+    deltaxx(it) = deltax;
+end
+
+semilogy(deltaxx,'g')
