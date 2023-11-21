@@ -29,10 +29,10 @@ while blad_b > blad
     end
     xi_b(it) = xi;
     blad_b = abs(b - a);
-    blad_bis(1,it) = blad_b;
+    blad_bis = blad_b;
 end
 
-semilogy(blad_bis(1,:),'r');
+semilogy(blad_bis,'r');
 
 % metoda Newtona
 % gdyby było o 5% większa to wartość prawdziwa musi być * 1.05
@@ -53,7 +53,7 @@ while delta_x > blad
     xi_new(it) = xi_1;
     delta_x = abs(xi - xi_1);
     xi = xi_1;
-    blad_N(2,it) = delta_x;
+    blad_N(it) = delta_x;
 end
 
-semilogy(blad_N(2,:),'g')
+semilogy(blad_N,'g')
