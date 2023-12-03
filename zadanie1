@@ -1,1 +1,22 @@
+clear all; clc;
 
+PODPUNKT A
+% dla funkcji In(x)
+x= linspace(1,10,200);
+y = log(x);
+N = 7;
+
+plot(x,y,'r');
+hold on; grid on;
+
+xN = linspace(1,10,7);
+yN = log(xN);
+
+plot(xN,yN,'ob')   %węzły interpolacji
+
+p = polyfit(xN,yN,N);
+pN = polyval(p,x);
+
+hold on; 
+
+plot(x, pN)
