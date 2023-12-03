@@ -20,3 +20,26 @@ pN = polyval(p,x);
 hold on; 
 
 plot(x, pN)
+
+FUNKCJA G(X)
+
+
+% dla funkcji g(x)
+N = 7;
+x = linspace(1,10,200);
+gx = x/5;
+
+plot(x,gx)
+hold on; grid on;
+
+xN = linspace(1,10,7);
+gxN = xN/5;
+
+plot(xN,gxN,'ob')
+
+p = polyfit(xN,gxN,7);
+pN= polyval(p,x);
+
+hold on;
+
+plot(x,pN)
