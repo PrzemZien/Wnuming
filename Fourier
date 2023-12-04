@@ -1,0 +1,58 @@
+
+close all;
+clc;
+clear all;
+
+x = linspace(0,2*pi,201)
+
+y_orig = [];
+y_four = []
+for iter = x
+    y_orig = [y_orig, f(iter)];
+end
+for iter = x
+    y_four = [y_four, fourier(iter)];
+end
+
+
+plot(x,y_orig);
+hold on;
+grid on;
+plot(x,y_four);
+legend('oryginalna', 'fourier')
+
+
+
+
+
+
+
+
+function y = f(x)
+    if x>=0 && x <= pi
+        y=x;
+    elseif x > pi && x <=2*pi
+        y = 2* pi -x;
+    else
+        y = 0
+    end
+end
+
+
+
+
+function y = fourier(x)
+
+a0 = pi;
+sum = 0;
+K = 16;
+T = 2*pi;
+
+for k=1:K
+    ak = (2/(pi*(k.^2))) * ((-1)^k -1);
+    sum = sum + ak*cos((2*k*pi*x)/T)
+end
+
+y= a0/2 + sum;
+
+end
