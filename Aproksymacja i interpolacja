@@ -1,0 +1,43 @@
+clear all;
+clc;
+
+x = linspace(-pi,3*pi,301);
+f1 = sin(x) .* cos(x);
+hold on;
+N = 15;
+a = -pi;
+b = 3*pi;
+for n=3:N
+    %pojedyńczym wielomianem
+    x_r = linspace(-pi,3*pi,n);
+    yd = sin(x_r) .* cos(x_r);
+    p_r = polyfit(x_r,yd,n);
+    prx = polyval(p_r,x);
+    blad1(n) = norm(prx - f1, inf);
+    % funkcjami sklejanymi (seklajnie kubicznie)
+    x_s = linspace(-pi,3*pi,n);
+    ys = sin(x_s) .* cos(x_s);
+    s1 = spline(x_s,ys,x);
+    blad2(n) = norm(s1 - f1, inf);
+    % metoda Czybyszewa
+    zc = cos((pi*(1:n+1) -0.5)/(n+1));
+    xc = 0.5*(b-a)*zc + 0.5*(a+b);
+    y_c = sin(xc) .* cos(xc);
+    p_c = polyfit(xc,y_c,n);
+    pcx = polyval(p_c,x);
+    blad3(n) = norm(pcx - f1, inf)
+    %aproksymacja
+    x_a = linspace(-pi,3*pi,N);
+    y_a = sin(x_a) .* cos(x_a);
+    p_a = polyfit(x_a,y_a,n);
+    pA = polyval(p_a,x);
+    blad4(n) = norm(pA - f1,inf);
+end
+
+semilogy(blad1);
+hold on;
+semilogy(blad2);
+hold on;
+semilogy(blad3);
+hold on;
+semilogy(blad4);
