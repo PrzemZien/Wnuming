@@ -1,0 +1,21 @@
+close all;
+clc;
+clear all;
+
+
+x = linspace(1,10,201);
+y = log(x);
+
+for N=2:15
+    xd = linspace(1,10,N+1);
+    yd = log(xd);
+    cN = polyfit(xd,yd,N);
+    gx = polyval(cN,x);
+    blad(N) = norm(gx-y, inf)
+    pause
+
+end
+
+semilogy(1:15, blad, '-ok','LineWidth',2);
+xlabel('Stopien wielomianu')
+title('Błąd interpolacji wielomianowej log(x)')
