@@ -1,0 +1,25 @@
+clear all;
+clc;
+
+x = linspace(-pi,3*pi,301);
+f1 = sin(x) .* cos(x);
+hold on;
+N = 15;
+
+for n=3:N
+    xd = linspace(-pi,3*pi,n);
+    yd = sin(xd) .* cos(xd);
+    p = polyfit(xd,yd,n);
+    pv = polyval(p,x);
+    figure(n-2)
+    subplot(2,1,1)
+    plot(x,f1);
+    hold on;
+    plot(xd,yd,'o')
+    plot(x,pv);
+    legend('oryginalna','wezly', 'aproksymacja')
+    blad(n) = norm(pv - f1,inf);
+end
+
+figure(14)
+semilogy(blad)
