@@ -70,3 +70,47 @@ end
 semilogy(1:15, blad, '-ok','LineWidth',2);
 xlabel('Stopien wielomianu')
 title('Błąd interpolacji spline log(x)')
+
+
+% Linear
+
+close all;
+clc;
+clear all;
+
+
+
+
+for N=2:15
+    x = linspace(1,10,200);
+    y = log(x);
+    xx = [min(x):0.01:max(x)];
+    inte1 = interp1(x,y,xx,'linear')
+    blad(N) = norm(inte1 - log(xx))
+    pause
+end
+
+semilogy(1:15, blad, '-ok','LineWidth',2);
+xlabel('Stopien wielomianu')
+title('Błąd interpolacji spline log(x)')
+
+%pchip
+close all;
+clc;
+clear all;
+
+
+
+
+for N=2:15
+    x = linspace(1,10,200);
+    y = log(x);
+    xx = [min(x):0.01:max(x)];
+    inte1 = interp1(x,y,xx,'pchip')
+    blad(N) = norm(inte1 - log(xx))
+    pause
+end
+
+semilogy(1:15, blad, '-ok','LineWidth',2);
+xlabel('Stopien wielomianu')
+title('Błąd interpolacji spline log(x)')
