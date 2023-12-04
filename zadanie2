@@ -19,3 +19,30 @@ end
 semilogy(1:15, blad, '-ok','LineWidth',2);
 xlabel('Stopien wielomianu')
 title('Błąd interpolacji wielomianowej log(x)')
+
+% Metoda Czebyszewa 
+
+close all;
+clc;
+clear all;
+
+
+x = linspace(1,10,201);
+y = log(x);
+a = 1;
+b = 10;
+for N=2:15
+    zc = cos((pi*(1:N+1) -0.5)/(N + 1));
+    xcz = 0.5*(b-a)*zc + 0.5 * (a + b);
+    ycz = log(xcz);
+    p = polyfit(xcz,ycz,N);
+    gx = polyval(p,xcz);
+    xx = [min(xcz):0.01:max(xcz)];
+    blad(N) = norm(gx - ycz, inf);
+    pause
+
+end
+
+semilogy(1:15, blad, '-ok','LineWidth',2);
+xlabel('Stopien wielomianu')
+title('Błąd interpolacji czybeszewa log(x)')
