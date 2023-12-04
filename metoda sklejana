@@ -1,0 +1,9 @@
+% Czyli dla np 
+N = 15;
+x = linspace(-pi,3*pi,301);
+f1_1 = sin(x) .* cos(x);
+xd = linspace(-pi,3*pi,N)
+yd = sin(xd) .* cos(xd)
+sklej = spline(xd,yd,x);
+blad2 = sklej - f1_1;
+semilogy(blad2);
