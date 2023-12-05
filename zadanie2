@@ -6,7 +6,7 @@ clear all;
 x = linspace(1,10,201);
 y = log(x);
 
-for N=2:15
+for N=2:15-1
     xd = linspace(1,10,N+1);
     yd = log(xd);
     cN = polyfit(xd,yd,N);
@@ -31,7 +31,7 @@ x = linspace(1,10,201);
 y = log(x);
 a = 1;
 b = 10;
-for N=2:15
+for N=2:15-1
     zc = cos((pi*(1:N+1) -0.5)/(N + 1));
     xcz = 0.5*(b-a)*zc + 0.5 * (a + b);
     ycz = log(xcz);
@@ -58,7 +58,7 @@ clear all;
 
 
 
-for N=2:15
+for N=2:15-1
     x = linspace(1,10,200);
     y = log(x);
     xx = [min(x):0.01:max(x)];
