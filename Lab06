@@ -1,0 +1,40 @@
+Zadanie 1
+
+clear all;
+clc;
+
+
+%a) 
+N = 15;
+x = linspace(0,4,301);
+fx = exp(x);
+% węzły
+xd = linspace(0,4,N-1);
+fxd = exp(xd);
+% interpolacja
+p = polyfit(xd,fxd,N);
+gx = polyval(p,x);
+blad = norm(gx - fx,inf);
+
+%b)
+%węzly
+xds = linespace(0,4,N-1);
+fxds = exp(xds);
+%interpolacja
+s1 = spline(xds,fxds,x);
+blads = norm(s1 - fx, inf);
+
+
+%c) 
+
+N = 15;
+x = linspace(0,4,301);
+fx = exp(x);
+a = 0;
+b = 4;
+zc = cos((pi*([1:N+1]-0.5))/(N+1));
+xc = 0.5*(b-a)*zc + 0.5*(b+a);
+fxc = exp(xc);
+pc = polyfit(xc,fxc,N-1);
+gxc = polyval(p,x);
+bladc = norm(gxc - fx, norm);
