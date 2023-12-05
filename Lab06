@@ -41,9 +41,11 @@ clc;
 N = 15;
 x = linspace(0,4,301);
 fx = exp(x);
+% węzły
 xd = linspace(0,4,N);
 fxd = exp(xd);
 for n=3:N
+    %aproksymacja
     p = polyfit(xd,fxd,n-1);
     gx = polyval(p,x);
     blad(n) = norm(gx - fx, inf);
