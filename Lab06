@@ -1,4 +1,4 @@
-Zadanie 1
+%Zadanie 1
 
 clear all;
 clc;
@@ -34,6 +34,30 @@ a = 0;
 b = 4;
 zc = cos((pi*([1:N+1]-0.5))/(N+1));
 xc = 0.5*(b-a)*zc + 0.5*(b+a);
+
+%Zadanie2 
+clear all;
+clc;
+N = 15;
+x = linspace(0,4,301);
+fx = exp(x);
+xd = linspace(0,4,N);
+fxd = exp(xd);
+for n=3:N
+    p = polyfit(xd,fxd,n-1);
+    gx = polyval(p,x);
+    blad(n) = norm(gx - fx, inf);
+    figure(n-2);
+    plot(x,fx);
+    hold on;
+    plot(xd,fxd,'o');
+    hold on;
+    plot(x,gx,'r');
+    legend('oryginalna', 'wezly', 'aproksymacja')
+
+end
+figure(15)
+semilogy(blad)
 fxc = exp(xc);
 pc = polyfit(xc,fxc,N-1);
 gxc = polyval(p,x);
