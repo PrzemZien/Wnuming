@@ -64,3 +64,50 @@ fxc = exp(xc);
 pc = polyfit(xc,fxc,N-1);
 gxc = polyval(p,x);
 bladc = norm(gxc - fx, norm);
+
+
+% zadanie 3
+clear all;
+clc;
+N = 15;
+x = linspace(0,4,301);
+fx = exp(x);
+xa = linspace(0,4,N);
+fxa = exp(xa);
+a = 0;
+b = 4;
+for n=3:N-1
+    %a)
+    %węzły
+    xd = linspace(0,4,n+1);
+    fxd = exp(xd);
+    %interpolacja
+    p = polyfit(xd,fxd,n);
+    gx = polyval(p,x);
+    blad(n) = norm(gx - fx, inf);
+    %b)
+    s1 = spline(xd,fxd,x)
+    blads(n) = norm(s1 - fx, inf);
+    %c)
+    zc = cos((pi*([1:N+1] - 0.5))/(N + 1));
+    xc = 0.5*(b-a)*zc + 0.5*(a + b);
+    fxc = exp(xc);
+    pc = polyfit(xc,fxc,n);
+    gxc = polyval(pc,x);
+    bladc(n) = norm(gxc - fx, inf);
+    %aproksymacja
+    pa = polyfit(xa,fxa,n);
+    gxa = polyval(pa,x);
+    blada(n) = norm(gx - fx, inf);
+end
+
+figure(1)
+subplot(2,1,1);
+semilogy(blad);
+hold on;
+semilogy(blads)
+hold on;
+semilogy(bladc)
+subplot(2,1,2)
+semilogy(blada)
+
