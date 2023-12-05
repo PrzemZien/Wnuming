@@ -16,7 +16,7 @@ for N=2:15-1
 
 end
 
-semilogy(1:15, blad, '-ok','LineWidth',2);
+semilogy( blad, '-ok','LineWidth',2);
 xlabel('Stopien wielomianu')
 title('Błąd interpolacji wielomianowej log(x)')
 
