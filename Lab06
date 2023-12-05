@@ -9,16 +9,16 @@ N = 15;
 x = linspace(0,4,301);
 fx = exp(x);
 % węzły
-xd = linspace(0,4,N-1);
+xd = linspace(0,4,N);
 fxd = exp(xd);
 % interpolacja
-p = polyfit(xd,fxd,N);
+p = polyfit(xd,fxd,N-1);
 gx = polyval(p,x);
 blad = norm(gx - fx,inf);
 
 %b)
 %węzly
-xds = linespace(0,4,N-1);
+xds = linespace(0,4,N);
 fxds = exp(xds);
 %interpolacja
 s1 = spline(xds,fxds,x);
