@@ -1,0 +1,16 @@
+% Zadanie 1
+a) 
+f = @(x) sin(pi*x);
+a = 0;
+b = pi / 2;
+dokladny = (1/pi)*(1 - cos(pi^2/2))
+format long
+display('Quad')
+q1 = quad(f,a,b)
+display('Quadl')
+q2 = quadl(f,a,b)
+display('dokladny')
+dokladny
+
+
+b) 
