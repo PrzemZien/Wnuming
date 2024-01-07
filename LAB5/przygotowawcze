@@ -1,16 +1,84 @@
-% Zadanie 1
-a) 
-f = @(x) sin(pi*x);
+clear all;
+clc;
+
+
+f = @(x) sin(3*pi*x);
 a = 0;
-b = pi / 2;
-dokladny = (1/pi)*(1 - cos(pi^2/2))
-format long
-display('Quad')
-q1 = quad(f,a,b)
-display('Quadl')
-q2 = quadl(f,a,b)
-display('dokladny')
-dokladny
+b = pi/2;
+%a)
+estymata = quad(f,a,b);
+
+M = [2 4 8 16];
+
+%trapzey 
+
+mT = 2;
+w = [1 1];
+wynikT = 0;
+
+% Milne
+mm = 90;
+wm = [7 32 12 32 7 ]
+wynikM = 0;
 
 
-b) 
+%Weddle
+mw = 840;
+ww = [41 216 27 272 272 41 840]
+wynikW = 0;
+for i=M
+    podprzedzialy = linspace(0,pi/2, i + 1);
+
+    for j= 1:i
+        a1 = podprzedzialy(j+1);
+        b1 = podprzedzialy(j);
+
+        %trapzey 
+
+        AT = (b1 - a1).*(w)./mT;
+        wx = linspace(a1,b1,2);
+        wy = f(wx);
+        x = AT * wy';
+        wynikT = x + wynikT;
+
+        %Milne
+
+        AM = (b1 - a1).*(wm)./mm;
+        wxm = linspace(a1,b1,5);
+        wym = f(wxm);
+        xm = AM*wym';
+        wynikM = xm + wynikM;
+
+        %Weddle
+        AW =  (b1 - a1).*(ww)./mw
+        wxw = linspace(a1,b1,7);
+        wyw = f(wxw)
+        xw = AW * wyw';
+        wynikW = xw + wynikW;
+
+    end
+    iteracje(log2(i)) = i;
+    % trapezy
+    wyniktrapezy(log2(i)) = wynikT;
+    blad(log2(i)) = abs(wynikT - estymata);
+    wynikT = 0;
+
+    %Milne
+
+    wynikmilne(log2(i)) = wynikM;
+    bladm(log2(i)) = abs(wynikM - estymata);
+    wynikM = 0;
+
+    %Weddle
+
+    wynikweddle(log2(i)) = wynikW;
+    bladw(log2(i)) = abs(wynikW - estymata);
+    wynikW = 0;
+end
+
+
+semilogy(iteracje, blad)
+hold on;
+semilogy(iteracje, bladm)
+hold on;
+semilogy(iteracje, bladw)
