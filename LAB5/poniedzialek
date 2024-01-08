@@ -1,39 +1,32 @@
-%Zadanie 1
+clear all;
+clc;
 
-%Różniczkowana funkcja i jej pochodna policzona ręcznie na kartce
-f=@(x) x.^5-x.^4+2.*x.^3+3.*x-3;
-fd=@(x) 5.*x.^4-4.*x.^3+6.*x.^2+3;
+f = @(x)  x.^4 -2.*x.^2 + 3.*x -8;
+fd = @(x) 4.*x.^3 - 4.*x + 3;
 
-x=1;
-dokladna=fd(x);
-h=logspace(0,-13,14); %Zwiększamy kroki wykładniczo tj 10^-1,-2,-3 itd
+h = logspace(0,-13,14);
+x = -1;
+dokl = fd(x);
 
-%Wzorki na pochodne
-roznica_wsteczna=(f(x)-f(x-h))./h;
-roznica_centralna=(f(x+h)-f(x-h))./(2*h);
-roznica_progresywna= (f(x+h)-f(x))./h;
+%Różnica progresywna
+df1 = (f(x+h)-f(x))./h;
+% różnica wsteczna
+df2 = (f(x) - f(x-h))./h;
+%różnica centralna
+df3 = (f(x+h) - f(x-h))./(2.*h);
 
-%Nasze błędy
-err_wste=abs(dokladna-roznica_wsteczna);
-err_cent=abs(dokladna-roznica_centralna);
-err_prog=abs(dokladna-roznica_progresywna);
+%bledy 
 
-%Wykresiki
-semilogy(err_prog)
+err_df1 = abs(df1 - dokl)
+err_df2 = abs(df2 - dokl)
+err_df3 = abs(df3 - dokl)
+
+semilogy(err_df1);
 hold on;
-semilogy(err_cent)
-semilogy(err_wste)
-hold off;
-legend('różnica progresywna','różnica centralna','różnica wsteczna');
-xlabel('Krok różniczkowania w postaci 10^N');
-ylabel('Błąd bezwzględny');
+semilogy(err_df2);
+hold on;
+semilogy(err_df3)
 
-%No i wybranie optymalnego kroku, tj indeksu pola z najmniejszym błędem z
-%wektora błędów. [v,i]=min(coś) zwróci nam v=wartość, i=indeks tego
-%elementu.
-[a,optimum_wsteczna]=min(err_wste);
-[b,optimum_centralna]=min(err_cent);
-[c,optimum_progresywna]=min(err_wste);
 
 %Zadanie2 
 
