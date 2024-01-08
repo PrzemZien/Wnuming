@@ -1,0 +1,67 @@
+%Zadanie 1
+
+%Różniczkowana funkcja i jej pochodna policzona ręcznie na kartce
+f=@(x) x.^5-x.^4+2.*x.^3+3.*x-3;
+fd=@(x) 5.*x.^4-4.*x.^3+6.*x.^2+3;
+
+x=1;
+dokladna=fd(x);
+h=logspace(0,-13,14); %Zwiększamy kroki wykładniczo tj 10^-1,-2,-3 itd
+
+%Wzorki na pochodne
+roznica_wsteczna=(f(x)-f(x-h))./h;
+roznica_centralna=(f(x+h)-f(x-h))./(2*h);
+roznica_progresywna= (f(x+h)-f(x))./h;
+
+%Nasze błędy
+err_wste=abs(dokladna-roznica_wsteczna);
+err_cent=abs(dokladna-roznica_centralna);
+err_prog=abs(dokladna-roznica_progresywna);
+
+%Wykresiki
+semilogy(err_prog)
+hold on;
+semilogy(err_cent)
+semilogy(err_wste)
+hold off;
+legend('różnica progresywna','różnica centralna','różnica wsteczna');
+xlabel('Krok różniczkowania w postaci 10^N');
+ylabel('Błąd bezwzględny');
+
+%No i wybranie optymalnego kroku, tj indeksu pola z najmniejszym błędem z
+%wektora błędów. [v,i]=min(coś) zwróci nam v=wartość, i=indeks tego
+%elementu.
+[a,optimum_wsteczna]=min(err_wste);
+[b,optimum_centralna]=min(err_cent);
+[c,optimum_progresywna]=min(err_wste);
+
+%Zadanie2 
+
+clear all;
+clc;
+
+
+
+%całka 
+
+f = @(x) (1/sqrt(2*pi)*exp(-(x.^2)/2))
+a1 = 0;
+b1 = 1;
+dokladna = quad(f,a1,b1)
+%trapzey
+M = 2;
+w = [1 1];
+
+AT = (b1 - a1).*(w)./M;
+wx = linspace(a1,b1,2);
+wy = f(wx);
+wynikT =  AT * wy'
+
+% Simpson 
+MS = 6;
+ws = [1 4 1 ];
+
+AS = (b1 - a1).*(ws)./MS;
+wxs = linspace(a1,b1,3);
+wxys = f(wxs);
+wynikS = AS * wxys'
