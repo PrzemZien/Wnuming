@@ -59,3 +59,13 @@ AS = (b1 - a1).*(ws)./MS;
 wxs = linspace(a1,b1,3);
 wxys = f(wxs);
 wynikS = AS * wxys'
+
+% Monte - Carlo 
+I1 = dokladna;
+
+N=[10,100,1000,10000,100000,200000];
+punkty=zeros(1,N(3));
+punkty(1, :)=rand([1,N(3)]) % losujemy wezły
+i=((b1-a1)/N(3))*sum(f(punkty))% obliczenie wartosci z wzoru ( wykłąd st52)
+
+blad = abs(I1-i)%bląd
