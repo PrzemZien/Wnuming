@@ -1,54 +1,56 @@
+clear all;
+clc;
+
+
 f = @(x) sin(3*x);
 a = 0;
 b = pi;
-% a)
+%a)
 estymata = quad(f,a,b);
-% b)
-
-N = 1:1:10;
-przedzialy = 2.^N;
-%trapez 
+%a2)
+% czyli chyba na papierze: 2/3
+%b)
+% przedziały
+N = 1:1:10
+przedzialy = 2.^N
+% trapez 
 MT = 2;
 WT = [1 1];
 wynikT = 0;
-% Simpson
+% Simpson 
 MS = 6;
 WS = [1 4 1];
 wynikS = 0;
-for i= przedzialy
-    podprzedzialy = linspace(0,pi,i + 1);
+for i=przedzialy
+    podprzedzialy = linspace(a,b,i + 1)
     for j=1:i
         a1 = podprzedzialy(j+1);
         b1 = podprzedzialy(j);
-        % trpazey 
-        AT = (b1 - a1) .* ((WT)./MT);
-        wxT = linspace(a1,b1,2);
-        WYT = f(wxT);
-        xT = AT * WYT';
-        wynikT = xT + wynikT;
-        % Simpson 
-        AS = (b1 - a1) .* ((WS)./MS);
-        WXS = linspace(a1,b1,3);
+        % Trapezy 
+        AT = (b1 - a1).*((WT)./MT);
+        WXT = linspace(a1,b1,2); % liczba punktów to 2
+        WXY = f(WXT);
+        x = AT * WXY';
+        wynikT = x + wynikT;
+        % Simpson
+        AS = (b1 - a1).*((WS)./(MS));
+        WXS = linspace(a1,b1,3); % liczba punktów to 3 
         WYS = f(WXS);
         XS = AS * WYS';
         wynikS = XS + wynikS;
-
     end
-    wynikTrapez(log2(i)) = wynikT;
+    wynikkonT(log2(i)) = wynikT; % log2(i) - bo mamy w przedzialach 2,4,8.. itd
     wynikT = 0;
-    wynikSIM(log2(i)) = wynikS;
+
+    wynikkonS(log2(i)) = wynikS;
     wynikS = 0;
 end
 
 
-% Monte - Carlo
-dokladna = quad(f,a,b)
 
-I1 = dokladna;
-
-N=[10,100,1000,10000,100000,200000];
-punkty=zeros(1,N(3));
-punkty(1, :)=rand([1,N(3)]) % losujemy wezły
-i=((b-a)/N(3))*sum(f(punkty))% obliczenie wartosci z wzoru ( wykłąd st52)
-
-blad = abs(I1-i)%bląd
+% metoda Monte-Carlo 
+NM = linspace(0,13,14);
+punkty = zeros(1, N(3));
+punkty(1, :) = rand([1,N(3)]); % losujemy punkty
+I = ((b - a)/(N(3))) * sum(f(punkty)); 
+bladMonteC= abs(I - estymata); % blad
