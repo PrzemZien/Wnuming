@@ -39,3 +39,16 @@ for i= przedzialy
     wynikSIM(log2(i)) = wynikS;
     wynikS = 0;
 end
+
+
+% Monte - Carlo
+dokladna = quad(f,a,b)
+
+I1 = dokladna;
+
+N=[10,100,1000,10000,100000,200000];
+punkty=zeros(1,N(3));
+punkty(1, :)=rand([1,N(3)]) % losujemy wezły
+i=((b-a)/N(3))*sum(f(punkty))% obliczenie wartosci z wzoru ( wykłąd st52)
+
+blad = abs(I1-i)%bląd
