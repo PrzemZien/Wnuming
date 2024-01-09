@@ -1,32 +1,28 @@
 %zadanie 1
 clear all;
 clc;
-
-f = @(x)  x.^4 -2.*x.^2 + 3.*x -8;
-fd = @(x) 4.*x.^3 - 4.*x + 3;
-
-h = logspace(0,-13,14);
+f = @(x) x.^4 - 2*x.^2 + 3*x - 8;
+fd = @(x) 4*x.^3 - 4*x + 3;
 x = -1;
-dokl = fd(x);
+h = logspace(0,-13,14);
+dokladna = fd(x)
+%różnica progresywna
+df = (f(x+h) -f(x))./h;
+blad_prog = abs(df - dokladna);
+%różnica wsteczna
+df1 = (f(x)-f(x-h))./h;
+blad_wstecz = abs(df1 - dokladna);
+%róznica centralna
+df2 = (f(x+h)-f(x-h))./(2.*h);
+blad_cen = abs(df2 - dokladna);
 
-%Różnica progresywna
-df1 = (f(x+h)-f(x))./h;
-% różnica wsteczna
-df2 = (f(x) - f(x-h))./h;
-%różnica centralna
-df3 = (f(x+h) - f(x-h))./(2.*h);
-
-%bledy 
-
-err_df1 = abs(df1 - dokl)
-err_df2 = abs(df2 - dokl)
-err_df3 = abs(df3 - dokl)
-
-semilogy(err_df1);
+semilogy(blad_prog)
 hold on;
-semilogy(err_df2);
-hold on;
-semilogy(err_df3)
+semilogy(blad_wstecz)
+hold on
+semilogy(blad_cen)
+legend('blad prog', 'blad wstecz', 'blad cen')
+semilogy(dokladna,'o')
 
 
 %Zadanie2 
