@@ -27,7 +27,9 @@ semilogy(dokladna,'o')
 
 %Zadanie2 
 
-% zadanie 2 
+clear all
+clc
+clear vars
 f = @(x) (1./(sqrt(2*pi)))*exp(-((x.^2)./2));
 a = -1;
 b = 1;
@@ -35,7 +37,6 @@ b = 1;
 dokladna = integral(f,a,b);
 % metoda quad
 c = quad(f,a,b);
-
 % metoda prosta trapez
 MT = 2;
 WT = [1 1];
@@ -46,11 +47,16 @@ WYT = f(WX);
 x = AT * WYT';
 wynikT = x + wynikT;
 % metoda złożonych trapezów
-
 wynikTT = 0;
-for i=1:2
+% metoda złożona Simpsona
+MS = 6;
+WS = [1 4 1];
+parametr = [2 3]
+wynikS = 0;
+for i=1:parametr
     podprzedzialy = linspace(a,b,i+1);
     for j=1:i
+        % trapez 
         a1 = podprzedzialy(j+1);
         b1 = podprzedzialy(j);
         ATT = (b1 - a1).*((WT)./(MT));
@@ -58,12 +64,19 @@ for i=1:2
         WYTT = f(WXTT);
         x = ATT * WYTT';
         wynikTT = x + wynikT;
+        % Simpson
+        AS = (b1 - a1).*((WS)./(MS));
+        WXS = linspace(a1,b1,3);
+        WYS = f(WXS);
+        XS = AS * WYS';
+        wynikS = XS + wynikS; 
     end
-    wynikkon(i) = wynikTT;
+    wynikkon(i) =  wynikTT;
     blad = abs(wynikTT - dokladna);
+    wynikkonS(i) =  wynikS;
+    bladS = abs(wynikS - dokladna);
+    wynikS = 0;
 end
-
-
 
 
 
